@@ -71,7 +71,10 @@ def fetch_metric_data(k8s_config, search_params):
         resource_metric["name"] = e["object"].metadata.name
 
         for key, value in e["object"].metadata.annotations:
-            resource_metric["annotation_" + key] = value
+            resource_metric[
+                "annotation_"
+                + key.replace(".", "_").replace("/", "_").replace("-", "_")
+            ] = value
 
         metric_data.append(resource_metric)
 
@@ -224,7 +227,6 @@ def main(args):
     )
     while True:
         update_metric(metric_collector, fetch_metric_data(k8s_config, search_params))
-        REGISTRY.collect()
         _logger.debug("Metrics page updated.")
         time.sleep(args.metrics_refresh_interval)
 
