@@ -120,6 +120,13 @@ def parse_args(args):
                 the config will be loaded from default location.""",
     )
     parser.add_argument(
+        "--in-cluster",
+        help="Set this flag when running within the cluster, to use a serviceaccount",
+        action="store_const",
+        const=True,
+        default=False,
+    )
+    parser.add_argument(
         "--metrics-refresh-interval",
         help="Metric data refresh interval in seconds",
         type=int,
@@ -187,7 +194,11 @@ def main(args):
     args = parse_args(args)
     setup_logging(args.loglevel)
 
-    k8s_config = config.load_kube_config(config_file=args.kube_config_file)
+    if args.in_cluster:
+        # if in-cluster mode is set in args, try using the incluster serviceaccount
+        k8s_config = config.load_incluster_config()
+    else:
+        k8s_config = config.load_kube_config(config_file=args.kube_config_file)
 
     search_params = {
         "api_version": args.resource_api_version,
