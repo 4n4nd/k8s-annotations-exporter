@@ -34,10 +34,46 @@ k8s-annotations-exporter
 ========================
 
 
-    Export k8s resoource annotations as Prometheus metric labels
+    Export k8s resource annotations as Prometheus metric labels
+
+Installation
+************
+
+Install directly from the `main` branch:
+
+``pip install https://github.com/4n4nd/k8s-annotations-exporter/zipball/main``
 
 
-A longer description of your project goes here...
+CLI help
+********
+
+After installing the package,
+you should be able to run this tool by executing ``k8s_annotations_exporter``.
+
+Output for ``k8s_annotations_exporter --help``:
+
+::
+
+    usage: k8s_annotations_exporter [-h] [--version] [--kube-config-file KUBE_CONFIG_FILE] [--metrics-refresh-interval METRICS_REFRESH_INTERVAL]
+                                    [--http-server-port HTTP_SERVER_PORT] [--resource-api-version RESOURCE_API_VERSION] [--resource-kind RESOURCE_KIND] [-v] [-vv]
+
+    Exporter to export Kubernetes resource annotations as Prometheus metrics
+
+    options:
+    -h, --help            show this help message and exit
+    --version             show program's version number and exit
+    --kube-config-file KUBE_CONFIG_FILE
+                            Kube config file location. If no argument provided, the config will be loaded from default location.
+    --metrics-refresh-interval METRICS_REFRESH_INTERVAL
+                            Metric data refresh interval in seconds
+    --http-server-port HTTP_SERVER_PORT
+                            Port number to start the metrics HTTP server. Default: 8000
+    --resource-api-version RESOURCE_API_VERSION
+                            Kubernetes resource API version. Default: v1
+    --resource-kind RESOURCE_KIND
+                            Kubernetes resource kind. Default: Namespace
+    -v, --verbose         set loglevel to INFO
+    -vv, --very-verbose   set loglevel to DEBUG
 
 
 .. _pyscaffold-notes:
