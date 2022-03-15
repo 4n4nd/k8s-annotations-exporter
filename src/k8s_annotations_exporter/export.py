@@ -77,7 +77,7 @@ def fetch_metric_data(k8s_config, search_params):
 
     # Gracefully stop the stream watcher
     watcher.stop()
-
+    _logger.debug("Collected metric data for {} resources".format(len(metric_data)))
     return metric_data
 
 
